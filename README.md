@@ -22,3 +22,5 @@ The DOS stub embedded within PE file, which is part of the MS-DOS. When a PE fil
 
 
 ## Explanation of Code
+
+PIMAGE_DOS_HEADER dosheader //PIMAGE_DOS_HEADER is a structure defined in windows API that represents the DOS Header of PE file. dosHeader is a variable of type PIMAGE_DOS_Header, means it will point to DOS header of PE file in memory
