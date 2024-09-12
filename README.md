@@ -26,6 +26,8 @@ This structure is important to PE Header but only few member of it are important
 ### DOS Stub
 The DOS stub embedded within PE file, which is part of the MS-DOS. When a PE file (like a Windows executable) is run on a DOS system, it displays a simple message like **This program cannot be run in DOS mode**, letting the user know that the file requires a Windows environment to run. DOS stub is located immediately after the DOS header and before the NT headers.
 
+******************************************************************************************************************************************************************************************************************
+
 ### Image NT Headers
 The NT Headers in a PE (Portable Executable) file are crucial because they contain the File Header, the Optional Header (which is very important), and the Data Directories. 
 To locate and access the IMAGE NT HEADER there is formula mentioned below:
@@ -33,11 +35,27 @@ To locate and access the IMAGE NT HEADER there is formula mentioned below:
 PIMAGE_NT_HEADERS imageNTHeaders = {};<br />
 imageNTHeaders = (PIMAGE_NT_HEADERS)((DWORD)fileData + dosHeader->e_lfanew);
 
-**Practical Calculation of lcoating the IMAGE NT HEADERS**
+**Practical Calculation of locating the IMAGE NT HEADERS**
+we will first read the DOS header, retrieve the e_lfanew value from it, and then calculate the location of the NT headers based on that offset.
+Base Address: 0x00400000
+e_lfanew: 0x00000100
+NT Image Location: 0x00400000 + 0x00000100 = 0x00400100
 
+Now to access specific field we use the below code:
+imageNTHeaders->Signature
+imageNTHeaders->FileHeader.Machine
+imageNTHeaders->OptionalHeader.Magic
+imageNTHeaders->OptionalHeader.DataDirectory[0].VirtualAddress, imageNTHeaders->OptionalHeader.DataDirectory[0].Size
 
+### Section Headers
+The Section header contains metadata about file. There are some sections that indicate their purpose.
+* .text:- Executable code of program
+* .data:- It has initialized data
+* .bss:- It has uninitilized/dynamic data
+* .rdata:- It has read-only initialized data
+* .edata:- It has export tables
+* .idata:- It has import tables
+* .reloc:- It has image relocation information
+* .rsrc:- It has resouces used by program
+* .tls:- It provide storage for every executing thread of program
 
-
-## Explanation of Code
-
-PIMAGE_DOS_HEADER dosheader //PIMAGE_DOS_HEADER is a structure defined in windows API that represents the DOS Header of PE file. dosHeader is a variable of type PIMAGE_DOS_Header, means it will point to DOS header of PE file in memory
