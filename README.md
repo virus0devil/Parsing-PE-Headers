@@ -12,7 +12,7 @@ PE stand for Portable Executables is a File format for executables used by windo
 DOS Header is a 64-byte long structure. Below is the structure of DOS Header.
 To access the DOS header in a Portable Executable (PE) file, we can cast the starting address of the file to a PIMAGE_DOS_HEADER pointer. Since the DOS header is the first structure in the PE file, we can directly assign the starting address of the file to a dosHeader pointer.
 
-PIMAGE_DOS_HEADER dosHeader = {};
+PIMAGE_DOS_HEADER dosHeader = {};<br />
 dosHeader = (PIMAGE_DOS_HEADER)fileData; 
 
 **fileData** is the starting address of the file, obtained after loading the file into memory.
@@ -30,7 +30,7 @@ The DOS stub embedded within PE file, which is part of the MS-DOS. When a PE fil
 The NT Headers in a PE (Portable Executable) file are crucial because they contain the File Header, the Optional Header (which is very important), and the Data Directories. 
 To locate and access the IMAGE NT HEADER there is formula mentioned below:
 
-PIMAGE_NT_HEADERS imageNTHeaders = {};
+PIMAGE_NT_HEADERS imageNTHeaders = {};<br />
 imageNTHeaders = (PIMAGE_NT_HEADERS)((DWORD)fileData + dosHeader->e_lfanew);
 
 **Practical Calculation of lcoating the IMAGE NT HEADERS**
